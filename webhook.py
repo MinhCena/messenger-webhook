@@ -7,11 +7,11 @@ app = Flask(__name__)
 
 # Hàm trích xuất tên và số điện thoại từ nội dung tin nhắn
 def extract_info(text):
-    phone_pattern = r"(0|\\+84)\\d{9,10}"
+    phone_pattern = r"(0|\+84)\d{9,10}"
     phone_number = re.search(phone_pattern, text)
     phone_number = phone_number.group() if phone_number else None
 
-    name_pattern = r"Tên tôi là (\\w+)"
+    name_pattern = r"Tên tôi là (\w+)"
     name = re.search(name_pattern, text)
     name = name.group(1) if name else None
 
@@ -30,4 +30,4 @@ def webhook():
     return jsonify({'status': 'success', 'name': name, 'phone_number': phone_number})
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000)
